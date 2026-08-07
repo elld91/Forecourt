@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-08-07T09:00:00+00:00",
+  "_sample": "Placeholder so the dashboard renders. The first real run overwrites this.",
+  "searches": [
+    {"name":"Kia Niro hybrid (top pick)","section":"Cars","count":1,"items":[
+      {"id":"c1","title":"SAMPLE \u2014 Kia Niro 2 1.6 GDi Hybrid DCT, 2019, 41k, camera","price":10450,"url":"https://www.ebay.co.uk/","image":"","source":"eBay","location":"Leeds, LS1","new":true,"score":76,"tags":["underpriced"],"headline":"~13% below the usual price"}
+    ]},
+    {"name":"Vespa \u2013 fixable-fault project","section":"Scooter","count":1,"items":[
+      {"id":"s1","title":"SAMPLE \u2014 Vespa ET4 125, starts but cuts out warm, spares or repair","price":540,"url":"https://www.ebay.co.uk/","image":"","source":"eBay","location":"London, E4","new":true,"score":83,"tags":["named fault"],"headline":"fault noted: cuts out, spares or repair, starts but"}
+    ]},
+    {"name":"Sn\u00fczPod bedside crib (used)","section":"Nursery","count":1,"items":[
+      {"id":"n1","title":"SAMPLE \u2014 SnuzPod 4 bedside crib + mattress, excellent","price":95,"url":"https://www.ebay.co.uk/","image":"","source":"eBay","location":"Croydon, CR0","new":false,"score":63,"tags":[],"headline":"~37% below usual"}
+    ]},
+    {"name":"Amazon price drops (your nursery wishlist)","section":"Nursery","count":1,"items":[
+      {"id":"n2","title":"SAMPLE \u2014 Babysense PRO video monitor \u2013 dropped to \u00a3179","price":179,"url":"https://www.amazon.co.uk/","image":"","source":"CamelCamelCamel","location":"","new":true,"score":70,"tags":["price drop"],"headline":"price drop"}
+    ]},
+    {"name":"Reclaimed / engineered oak flooring","section":"Renovation","count":1,"items":[
+      {"id":"r1","title":"SAMPLE \u2014 Engineered oak herringbone, 8.4m2, unopened","price":260,"url":"https://www.ebay.co.uk/","image":"","source":"eBay","location":"Bromley, BR1","new":true,"score":62,"tags":[],"headline":""}
+    ]},
+    {"name":"HotUKDeals \u2013 flooring / paint / kitchen","section":"Renovation","count":1,"items":[
+      {"id":"r2","title":"SAMPLE \u2014 Farrow & Ball Estate Emulsion 2.5L 3 for 2 @ B&Q","price":0,"url":"https://www.hotukdeals.com/","image":"","source":"HotUKDeals","location":"","new":true,"score":70,"tags":["community deal"],"headline":"community deal"}
+    ]},
+    {"name":"Facebook / Gumtree / other alerts","section":"Saved-search alerts","count":1,"items":[
+      {"id":"a1","title":"SAMPLE \u2014 Cybex Gazelle S double, grey, barely used \u2013 \u00a3300","price":300,"url":"https://www.facebook.com/marketplace/","image":"","source":"Facebook Marketplace","location":"","new":true,"score":65,"tags":["alert"],"headline":"Facebook Marketplace"}
+    ]}
+  ]
+}

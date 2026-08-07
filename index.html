@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forecourt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lime:#E8E2D4;--lime-deep:#DED7C6;--treron:#4E5D57;--treron-ink:#2C3833;
+    --brass:#A6813F;--brass-soft:#C9A461;--ink:#26292B;--muted:#6E6A5F;
+    --card:#F4F0E7;--line:#CFC7B4;--new:#3B6B4F;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--lime);color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.45}
+  a{color:inherit}
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 64px}
+
+  header{padding:34px 0 16px;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);font-weight:600;margin:0 0 6px}
+  h1{font-family:"Fraunces";font-weight:500;font-size:clamp(34px,9vw,52px);line-height:.98;margin:0;color:var(--treron-ink);letter-spacing:-.01em}
+  .sub{margin:10px 0 0;color:var(--muted);font-size:14px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 2px}
+  .chip{border:1px solid var(--line);background:transparent;color:var(--muted);
+    font:600 13px "Inter";padding:7px 13px;border-radius:100px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--treron);color:#F4F0E7;border-color:var(--treron)}
+
+  .block{margin:34px 0 0}
+  .block-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin:0 0 2px}
+  .block-title{font-family:"Fraunces";font-weight:500;font-size:27px;margin:0 0 4px;color:var(--treron-ink);
+    padding-bottom:8px;border-bottom:2px solid var(--treron)}
+
+  .src-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:18px 0 2px}
+  .src-head h3{font-size:14px;font-weight:600;margin:0;color:var(--ink)}
+  .src-head .n{font:600 11px "Inter";letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+  .card{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:12px;margin-top:10px;text-decoration:none;transition:.15s}
+  .card:hover{border-color:var(--brass-soft);transform:translateY(-1px)}
+  .thumb{width:96px;height:96px;flex:0 0 96px;border-radius:7px;object-fit:cover;background:var(--lime-deep)}
+  @media(max-width:460px){.thumb{width:78px;height:78px;flex-basis:78px}}
+  .body{min-width:0;flex:1;display:flex;flex-direction:column}
+  .row1{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .price{font-family:"Fraunces";font-weight:600;font-size:21px;color:var(--treron-ink);white-space:nowrap}
+  .price.free{color:var(--new)}
+  .title{font-size:14px;font-weight:500;margin:2px 0 0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .meta{font-size:12px;color:var(--muted);margin-top:auto;padding-top:8px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+  .b{font:600 11px "Inter";letter-spacing:.03em;padding:3px 8px;border-radius:5px;text-transform:uppercase}
+  .b-new{background:var(--new);color:#EAF2EC}
+  .b-deal{background:var(--brass);color:#FBF6EA}
+  .b-fault{background:#5B4636;color:#F1E4D6}
+  .b-quiet{background:var(--lime-deep);color:var(--muted)}
+  .gauge{height:5px;border-radius:3px;background:var(--lime-deep);margin-top:9px;position:relative;overflow:hidden}
+  .gauge>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--brass-soft),var(--brass));border-radius:3px}
+  .headline{font-size:12px;color:var(--brass);font-weight:600;margin-top:6px}
+
+  .state{padding:38px 4px;color:var(--muted);font-size:15px}
+  .state b{color:var(--ink)}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  footer code{background:var(--lime-deep);padding:1px 5px;border-radius:4px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Second-hand &amp; deal watch</p>
+    <h1>Forecourt</h1>
+    <p class="sub" id="sub">Loading&hellip;</p>
+    <div class="filters" id="filters" hidden>
+      <button class="chip" data-f="all" aria-pressed="true">Everything</button>
+      <button class="chip" data-f="new" aria-pressed="false">New since last check</button>
+      <button class="chip" data-f="best" aria-pressed="false">Best value</button>
+    </div>
+  </header>
+  <main id="main"><div class="state">Fetching&hellip;</div></main>
+  <footer>
+    eBay via its API, CamelCamelCamel &amp; HotUKDeals via RSS, and Facebook / Gumtree / Preloved / Vinted via
+    saved-search alert emails read from your <code>forecourt</code> label. Edit <code>searches.json</code> to change what&rsquo;s tracked.
+  </footer>
+</div>
+
+<script>
+const state = {data:null, filter:"all"};
+const TAGS = {
+  "underpriced":{t:"Under usual",c:"b-deal"},
+  "named fault":{t:"Fault noted",c:"b-fault"},
+  "price drop":{t:"Price drop",c:"b-deal"},
+  "community deal":{t:"Community deal",c:"b-quiet"},
+  "alert":{t:"Alert",c:"b-quiet"},
+};
+
+function money(n){return n>0 ? "\u00a3"+Math.round(n).toLocaleString("en-GB") : "See listing";}
+function when(iso){try{const m=Math.round((Date.now()-new Date(iso))/60000);
+  if(m<60)return m+" min ago"; const h=Math.round(m/60);
+  if(h<24)return h+(h===1?" hour ago":" hours ago");
+  return new Date(iso).toLocaleDateString("en-GB",{day:"numeric",month:"short"});}catch(e){return iso;}}
+function keep(i){return state.filter==="new"?i.new:state.filter==="best"?i.score>=65:true;}
+
+function card(item){
+  const a=document.createElement("a");
+  a.className="card"; a.href=item.url||"#"; a.target="_blank"; a.rel="noopener";
+  const img=document.createElement("img"); img.className="thumb"; img.loading="lazy"; img.alt="";
+  img.src=item.image||"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'/>";
+  if(!item.image) img.style.display="none";
+  a.appendChild(img);
+  const badges=[];
+  if(item.new) badges.push('<span class="b b-new">New</span>');
+  (item.tags||[]).forEach(t=>{const m=TAGS[t]; if(m) badges.push(`<span class="b ${m.c}">${m.t}</span>`);});
+  const body=document.createElement("div"); body.className="body";
+  body.innerHTML=`
+    <div class="row1">
+      <div class="title">${item.title||"Untitled"}</div>
+      <div class="price ${item.price===0?'free':''}">${money(item.price)}</div>
+    </div>
+    <div class="badges">${badges.join("")}</div>
+    ${item.headline?`<div class="headline">${item.headline}</div>`:""}
+    <div class="gauge"><i style="width:${Math.max(4,Math.min(100,item.score))}%"></i></div>
+    <div class="meta">${[item.source,item.location].filter(Boolean).join(" \u00b7 ")}</div>`;
+  a.appendChild(body);
+  return a;
+}
+
+function render(){
+  const main=document.getElementById("main"); main.innerHTML="";
+  if(!state.data) return;
+  const order=[]; const bySection={};
+  for(const s of state.data.searches){
+    if(!(s.section in bySection)){bySection[s.section]=[]; order.push(s.section);}
+    bySection[s.section].push(s);
+  }
+  let shown=0;
+  for(const section of order){
+    const sources=bySection[section].map(s=>({...s,items:s.items.filter(keep)})).filter(s=>s.items.length);
+    if(!sources.length) continue;
+    const block=document.createElement("section"); block.className="block";
+    const total=sources.reduce((n,s)=>n+s.items.length,0); shown+=total;
+    block.innerHTML=`<p class="block-eyebrow">${total} listing${total===1?"":"s"}</p><h2 class="block-title">${section}</h2>`;
+    for(const s of sources){
+      const head=document.createElement("div"); head.className="src-head";
+      head.innerHTML=`<h3>${s.name}</h3><span class="n">${s.items.length}</span>`;
+      block.appendChild(head);
+      s.items.forEach(it=>block.appendChild(card(it)));
+    }
+    main.appendChild(block);
+  }
+  if(!shown){
+    main.innerHTML=`<div class="state"><b>Nothing for this filter.</b><br>${
+      state.filter==="new"?"No new listings since the last run \u2014 it checks every couple of hours.":
+      state.filter==="best"?"Nothing sitting notably below usual price right now.":
+      "No matches yet. Add your feed URLs and eBay keys, then run the action."}</div>`;
+  }
+}
+function setFilter(f){state.filter=f;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.f===f)));render();}
+
+async function load(){
+  try{
+    const r=await fetch("./data.json?"+Date.now()); if(!r.ok) throw 0;
+    state.data=await r.json();
+    const all=state.data.searches.reduce((n,s)=>n+s.items.length,0);
+    const fresh=state.data.searches.reduce((n,s)=>n+s.items.filter(i=>i.new).length,0);
+    document.getElementById("sub").innerHTML=`<b>${all}</b> tracked \u00b7 <b>${fresh}</b> new \u00b7 updated ${when(state.data.generated_at)}`;
+    document.getElementById("filters").hidden=false; render();
+  }catch(e){
+    document.getElementById("main").innerHTML=`<div class="state"><b>No data yet.</b><br>Run the <b>forecourt-watch</b> action once, then refresh.</div>`;
+    document.getElementById("sub").textContent="Waiting for the first run.";
+  }
+}
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(b) setFilter(b.dataset.f);});
+load();
+</script>
+</body>
+</html>
