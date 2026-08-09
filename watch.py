@@ -104,6 +104,8 @@ def get_token() -> str:
 
 def search_ebay(token: str, s: dict) -> list:
     filt = f"price:[{s['min_price']}..{s['max_price']}],priceCurrency:GBP"
+    if s.get("conditions"):
+        filt += ",conditions:{" + s["conditions"] + "}"
     params = {"q": s["query"], "filter": filt, "limit": RESULTS_PER_SEARCH}
     if s.get("category_ids"):
         params["category_ids"] = str(s["category_ids"])
