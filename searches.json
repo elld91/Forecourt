@@ -39,7 +39,7 @@
     {
       "name": "Vespa \u2013 fixable-fault project",
       "section": "Scooter", "type": "scooter",
-      "query": "Vespa scooter", "category_ids": "9936",
+      "query": "Vespa scooter", "category_ids": "",
       "min_price": 200, "max_price": 1800, "reference_price": 1200,
       "must_include": ["vespa"],
       "exclude": ["helmet", "sign", "canvas", "model", "toy", "clock", "cover", "sticker", "badge", "lamp", "ride on", "diecast", "die cast", "mirror", "photograph"],
