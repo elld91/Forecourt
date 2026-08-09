@@ -25,20 +25,31 @@
   .sub{margin:10px 0 0;color:var(--muted);font-size:14px}
   .sub b{color:var(--ink);font-weight:600}
 
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 2px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 2px;align-items:center}
   .chip{border:1px solid var(--line);background:transparent;color:var(--muted);
     font:600 13px "Inter";padding:7px 13px;border-radius:100px;cursor:pointer}
   .chip[aria-pressed="true"]{background:var(--treron);color:#F4F0E7;border-color:var(--treron)}
+  .spacer{flex:1}
+  .txtbtn{background:none;border:none;color:var(--brass);font:600 13px "Inter";cursor:pointer;padding:6px 4px;white-space:nowrap}
+  .txtbtn:hover{text-decoration:underline}
 
   .block{margin:34px 0 0}
   .block-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin:0 0 2px}
   .block-title{font-family:"Fraunces";font-weight:500;font-size:27px;margin:0 0 4px;color:var(--treron-ink);
     padding-bottom:8px;border-bottom:2px solid var(--treron)}
 
-  .src-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:18px 0 2px}
-  .src-head h3{font-size:14px;font-weight:600;margin:0;color:var(--ink)}
-  .src-head .n{font:600 11px "Inter";letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .src-head{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+    background:none;border:none;cursor:pointer;padding:14px 2px;margin:0;
+    border-bottom:1px solid var(--line);font-family:"Inter"}
+  .src-head:hover .src-name{color:var(--brass)}
+  .src-name{font-size:15px;font-weight:600;color:var(--ink);flex:1;min-width:0}
+  .src-count{font:600 11px "Inter";letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .src-new{font:600 10px "Inter";letter-spacing:.04em;text-transform:uppercase;background:var(--new);color:#EAF2EC;padding:2px 7px;border-radius:5px;white-space:nowrap}
+  .chev{width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+    transform:rotate(-45deg);transition:transform .18s;flex:0 0 auto;margin-left:2px}
+  .src-head.open .chev{transform:rotate(45deg)}
 
+  .group-body{padding-top:2px}
   .card{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);
     border-radius:10px;padding:12px;margin-top:10px;text-decoration:none;transition:.15s}
   .card:hover{border-color:var(--brass-soft);transform:translateY(-1px)}
@@ -75,19 +86,26 @@
     <p class="sub" id="sub">Loading&hellip;</p>
     <div class="filters" id="filters" hidden>
       <button class="chip" data-f="all" aria-pressed="true">Everything</button>
-      <button class="chip" data-f="new" aria-pressed="false">New since last check</button>
+      <button class="chip" data-f="new" aria-pressed="false">New</button>
       <button class="chip" data-f="best" aria-pressed="false">Best value</button>
+      <span class="spacer"></span>
+      <button class="txtbtn" id="toggleAll">Expand all</button>
     </div>
   </header>
   <main id="main"><div class="state">Fetching&hellip;</div></main>
   <footer>
-    eBay via its API, CamelCamelCamel &amp; HotUKDeals via RSS, and Facebook / Gumtree / Preloved / Vinted via
-    saved-search alert emails read from your <code>forecourt</code> label. Edit <code>searches.json</code> to change what&rsquo;s tracked.
+    Tap an item row to open or close it. eBay via API, plus RSS &amp; saved-search alerts. Edit <code>searches.json</code> to change what&rsquo;s tracked.
   </footer>
 </div>
 
 <script>
 const state = {data:null, filter:"all"};
+const OPEN_KEY = "forecourt-open-v1";
+let openGroups = new Set();
+try { openGroups = new Set(JSON.parse(localStorage.getItem(OPEN_KEY) || "[]")); } catch(e){}
+function saveOpen(){ try { localStorage.setItem(OPEN_KEY, JSON.stringify([...openGroups])); } catch(e){} }
+const gkey = (section,name)=> section+"||"+name;
+
 const TAGS = {
   "underpriced":{t:"Under usual",c:"b-deal"},
   "named fault":{t:"Fault noted",c:"b-fault"},
@@ -127,9 +145,19 @@ function card(item){
   return a;
 }
 
+function allKeys(){
+  const keys=[];
+  if(!state.data) return keys;
+  for(const s of state.data.searches){
+    if(s.items.filter(keep).length) keys.push(gkey(s.section,s.name));
+  }
+  return keys;
+}
+
 function render(){
   const main=document.getElementById("main"); main.innerHTML="";
   if(!state.data) return;
+  const forceOpen = state.filter!=="all";   // when filtering, show the (few) matches directly
   const order=[]; const bySection={};
   for(const s of state.data.searches){
     if(!(s.section in bySection)){bySection[s.section]=[]; order.push(s.section);}
@@ -143,20 +171,39 @@ function render(){
     const total=sources.reduce((n,s)=>n+s.items.length,0); shown+=total;
     block.innerHTML=`<p class="block-eyebrow">${total} listing${total===1?"":"s"}</p><h2 class="block-title">${section}</h2>`;
     for(const s of sources){
-      const head=document.createElement("div"); head.className="src-head";
-      head.innerHTML=`<h3>${s.name}</h3><span class="n">${s.items.length}</span>`;
+      const key=gkey(section,s.name);
+      const isOpen = forceOpen || openGroups.has(key);
+      const newCount = s.items.filter(i=>i.new).length;
+      const head=document.createElement("button");
+      head.className="src-head"+(isOpen?" open":"");
+      head.innerHTML=`<span class="src-name">${s.name}</span>
+        ${newCount?`<span class="src-new">${newCount} new</span>`:""}
+        <span class="src-count">${s.items.length}</span>
+        <span class="chev"></span>`;
+      head.addEventListener("click",()=>{
+        if(openGroups.has(key)) openGroups.delete(key); else openGroups.add(key);
+        saveOpen(); render();
+      });
       block.appendChild(head);
-      s.items.forEach(it=>block.appendChild(card(it)));
+      if(isOpen){
+        const g=document.createElement("div"); g.className="group-body";
+        s.items.forEach(it=>g.appendChild(card(it)));
+        block.appendChild(g);
+      }
     }
     main.appendChild(block);
   }
   if(!shown){
     main.innerHTML=`<div class="state"><b>Nothing for this filter.</b><br>${
-      state.filter==="new"?"No new listings since the last run \u2014 it checks every couple of hours.":
+      state.filter==="new"?"No new listings since the last run.":
       state.filter==="best"?"Nothing sitting notably below usual price right now.":
       "No matches yet. Add your feed URLs and eBay keys, then run the action."}</div>`;
   }
+  // reflect expand/collapse-all button label
+  const btn=document.getElementById("toggleAll");
+  if(btn){ const anyOpen=allKeys().some(k=>openGroups.has(k)); btn.textContent = anyOpen ? "Collapse all" : "Expand all"; }
 }
+
 function setFilter(f){state.filter=f;
   document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.f===f)));render();}
 
@@ -174,6 +221,11 @@ async function load(){
   }
 }
 document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(b) setFilter(b.dataset.f);});
+document.getElementById("toggleAll").addEventListener("click",()=>{
+  const keys=allKeys(); const anyOpen=keys.some(k=>openGroups.has(k));
+  if(anyOpen){ keys.forEach(k=>openGroups.delete(k)); } else { keys.forEach(k=>openGroups.add(k)); }
+  saveOpen(); render();
+});
 load();
 </script>
 </body>
