@@ -1,20 +1,21 @@
 {
   "_notes": [
-    "Three kinds of source feed one dashboard, grouped by 'section'.",
+    "Three source types feed one dashboard, grouped by 'section'.",
     "ebay_searches: official eBay UK Browse API. type = car | scooter | goods.",
-    "feeds: any RSS URL. Use for CamelCamelCamel price-drop feeds and HotUKDeals keyword feeds.",
-    "  - CamelCamelCamel: make a public Amazon wishlist of your kit, import it at camelcamelcamel.com, then copy the RSS URL it gives you into a feed below.",
-    "  - HotUKDeals: search a keyword on hotukdeals.com and grab the RSS link for that search; one feed per keyword.",
-    "Facebook / Gumtree / Preloved / Vinted / Enviromate have no API. Set up a SAVED SEARCH on each,",
-    "  send the alert emails to a Gmail label (default name 'forecourt'), and the watcher reads that label via IMAP.",
-    "  See the README for the 3-step email setup."
+    "  category_ids restrict results to a real eBay category so parts/accessories can't sneak in.",
+    "  Clean single-brand scooter categories: Vespa 9936, Lambretta 36094 (these makes only sell scooters).",
+    "  Honda 9806 / Yamaha 9809 / BMW 9915 categories also contain big motorbikes, so those searches use",
+    "  must_include model names to keep only the scooters.",
+    "  Makes with no category (Royal Alloy, Scomadi, Peugeot, Piaggio) use a model-name query + a price floor.",
+    "feeds: RSS URLs (CamelCamelCamel price drops, HotUKDeals keyword deals) - paste real URLs over the placeholders.",
+    "Facebook / Gumtree / Preloved / Vinted have no API - use their saved-search email alerts into a Gmail 'forecourt' label."
   ],
 
   "ebay_searches": [
     {
       "name": "Kia Niro hybrid (top pick)",
       "section": "Cars", "type": "car",
-      "query": "Kia Niro hybrid automatic", "category_ids": "",
+      "query": "Kia Niro hybrid automatic", "category_ids": "9801",
       "min_price": 8000, "max_price": 15000, "reference_price": 12000,
       "must_include": ["niro"],
       "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "leather", "mat"]
@@ -22,7 +23,7 @@
     {
       "name": "Toyota C-HR hybrid",
       "section": "Cars", "type": "car",
-      "query": "Toyota C-HR hybrid", "category_ids": "",
+      "query": "Toyota C-HR hybrid", "category_ids": "9801",
       "min_price": 8000, "max_price": 15000, "reference_price": 13000,
       "must_include": ["c-hr", "chr"],
       "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "mat"]
@@ -30,20 +31,92 @@
     {
       "name": "Nissan Qashqai 1.2 Tekna (in-budget)",
       "section": "Cars", "type": "car",
-      "query": "Nissan Qashqai Tekna DIG-T Xtronic", "category_ids": "",
+      "query": "Nissan Qashqai Tekna DIG-T Xtronic", "category_ids": "9801",
       "min_price": 4000, "max_price": 9000, "reference_price": 7500,
       "must_include": ["qashqai"],
       "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "mat"]
     },
 
     {
-      "name": "Vespa \u2013 fixable-fault project",
-      "section": "Scooter", "type": "scooter",
-      "query": "Vespa scooter", "category_ids": "",
-      "min_price": 200, "max_price": 1800, "reference_price": 1200,
+      "name": "Vespa",
+      "section": "Scooters", "type": "scooter",
+      "query": "Vespa", "category_ids": "9936",
+      "min_price": 200, "max_price": 4000, "reference_price": 1800,
       "must_include": ["vespa"],
-      "exclude": ["helmet", "sign", "canvas", "model", "toy", "clock", "cover", "sticker", "badge", "lamp", "ride on", "diecast", "die cast", "mirror", "photograph"],
+      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "diecast", "die cast", "toy"],
       "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "won't charge", "wont charge", "needs", "starts but", "no spark", "project", "cutting out", "cuts out"]
+    },
+    {
+      "name": "Lambretta",
+      "section": "Scooters", "type": "scooter",
+      "query": "Lambretta", "category_ids": "36094",
+      "min_price": 300, "max_price": 5000, "reference_price": 2500,
+      "must_include": ["lambretta"],
+      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "diecast", "die cast", "toy"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "won't charge", "wont charge", "needs", "starts but", "no spark", "project", "cutting out", "cuts out"]
+    },
+    {
+      "name": "Royal Alloy (GP125 / GP300)",
+      "section": "Scooters", "type": "scooter",
+      "query": "Royal Alloy scooter", "category_ids": "",
+      "min_price": 500, "max_price": 4500, "reference_price": 2500,
+      "must_include": ["royal alloy"],
+      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "Scomadi (TL125 / TL200)",
+      "section": "Scooters", "type": "scooter",
+      "query": "Scomadi scooter", "category_ids": "",
+      "min_price": 500, "max_price": 4500, "reference_price": 2500,
+      "must_include": ["scomadi"],
+      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "Peugeot Django",
+      "section": "Scooters", "type": "scooter",
+      "query": "Peugeot Django", "category_ids": "",
+      "min_price": 400, "max_price": 4000, "reference_price": 2000,
+      "must_include": ["django"],
+      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "Honda scooters (SH / PCX / Forza / Super Cub)",
+      "section": "Scooters", "type": "scooter",
+      "query": "Honda scooter", "category_ids": "9806",
+      "min_price": 400, "max_price": 6000, "reference_price": 2800,
+      "must_include": ["sh125", "sh 125", "sh150", "sh 150", "sh300", "pcx", "forza", "super cub", "supercub", "c125", "vision", "lead"],
+      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "Yamaha scooters (NMAX / XMAX / Tricity)",
+      "section": "Scooters", "type": "scooter",
+      "query": "Yamaha scooter", "category_ids": "9809",
+      "min_price": 400, "max_price": 6500, "reference_price": 3200,
+      "must_include": ["nmax", "n-max", "xmax", "x-max", "tricity", "d'elight", "delight", "cygnus", "aerox"],
+      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "BMW C400 (X / GT)",
+      "section": "Scooters", "type": "scooter",
+      "query": "BMW C400 scooter", "category_ids": "9915",
+      "min_price": 1500, "max_price": 7500, "reference_price": 4500,
+      "must_include": ["c400", "c 400"],
+      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+    },
+    {
+      "name": "Piaggio (Beverly / Medley / Liberty)",
+      "section": "Scooters", "type": "scooter",
+      "query": "Piaggio scooter", "category_ids": "",
+      "min_price": 400, "max_price": 5500, "reference_price": 2500,
+      "must_include": ["beverly", "medley", "liberty"],
+      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
+      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
     },
 
     {
@@ -99,24 +172,18 @@
 
   "feeds": [
     {
-      "name": "Amazon price drops (your nursery wishlist)",
-      "section": "Nursery",
-      "source": "CamelCamelCamel",
-      "tag_label": "price drop",
+      "name": "Amazon price drops (your nursery watches)",
+      "section": "Nursery", "source": "CamelCamelCamel", "tag_label": "price drop",
       "url": "PASTE_CAMELCAMELCAMEL_RSS_URL_HERE"
     },
     {
       "name": "HotUKDeals \u2013 nursery / baby keywords",
-      "section": "Nursery",
-      "source": "HotUKDeals",
-      "tag_label": "community deal",
+      "section": "Nursery", "source": "HotUKDeals", "tag_label": "community deal",
       "url": "PASTE_HOTUKDEALS_RSS_URL_HERE"
     },
     {
       "name": "HotUKDeals \u2013 flooring / paint / kitchen",
-      "section": "Renovation",
-      "source": "HotUKDeals",
-      "tag_label": "community deal",
+      "section": "Renovation", "source": "HotUKDeals", "tag_label": "community deal",
       "url": "PASTE_HOTUKDEALS_RSS_URL_HERE"
     }
   ]
