@@ -1,189 +1,1169 @@
 {
   "_notes": [
-    "Three source types feed one dashboard, grouped by 'section'.",
-    "ebay_searches: official eBay UK Browse API. type = car | scooter | goods.",
-    "  category_ids restrict results to a real eBay category so parts/accessories can't sneak in.",
-    "  Clean single-brand scooter categories: Vespa 9936, Lambretta 36094 (these makes only sell scooters).",
-    "  Honda 9806 / Yamaha 9809 / BMW 9915 categories also contain big motorbikes, so those searches use",
-    "  must_include model names to keep only the scooters.",
-    "  Makes with no category (Royal Alloy, Scomadi, Peugeot, Piaggio) use a model-name query + a price floor.",
-    "feeds: RSS URLs (CamelCamelCamel price drops, HotUKDeals keyword deals) - paste real URLs over the placeholders.",
-    "Facebook / Gumtree / Preloved / Vinted have no API - use their saved-search email alerts into a Gmail 'forecourt' label."
+    "Sources: ebay_searches (Browse API) + feeds (RSS) + email ingest (Facebook/Gumtree/etc via Gmail label).",
+    "ebay_searches type: car | scooter | goods.",
+    "Style hunt: the aesthetic (mid-century / modern-Victorian / antique) is baked into each query so eBay ranks the right look first. It can't be filtered perfectly - judge from photos. Ask to add the other-style variant for any item.",
+    "conditions: 'NEW' restricts a search to brand-new items (used for the SnuzPod).",
+    "reference_price 0 = don't score against a 'usual' price (right for one-off vintage/antique pieces) - the listing just shows, newest flagged."
   ],
-
   "ebay_searches": [
     {
       "name": "Kia Niro hybrid (top pick)",
-      "section": "Cars", "type": "car",
-      "query": "Kia Niro hybrid automatic", "category_ids": "9801",
-      "min_price": 8000, "max_price": 15000, "reference_price": 12000,
-      "must_include": ["niro"],
-      "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "leather", "mat"]
+      "section": "Cars",
+      "type": "car",
+      "query": "Kia Niro hybrid automatic",
+      "category_ids": "9801",
+      "min_price": 8000,
+      "max_price": 15000,
+      "reference_price": 12000,
+      "must_include": [
+        "niro"
+      ],
+      "exclude": [
+        "breaking",
+        "spares",
+        "wheel",
+        "bumper",
+        "door",
+        "mirror",
+        "seat",
+        "part",
+        "leather",
+        "mat"
+      ]
     },
     {
       "name": "Toyota C-HR hybrid",
-      "section": "Cars", "type": "car",
-      "query": "Toyota C-HR hybrid", "category_ids": "9801",
-      "min_price": 8000, "max_price": 15000, "reference_price": 13000,
-      "must_include": ["c-hr", "chr"],
-      "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "mat"]
+      "section": "Cars",
+      "type": "car",
+      "query": "Toyota C-HR hybrid",
+      "category_ids": "9801",
+      "min_price": 8000,
+      "max_price": 15000,
+      "reference_price": 13000,
+      "must_include": [
+        "c-hr",
+        "chr"
+      ],
+      "exclude": [
+        "breaking",
+        "spares",
+        "wheel",
+        "bumper",
+        "door",
+        "mirror",
+        "seat",
+        "part",
+        "mat"
+      ]
     },
     {
       "name": "Nissan Qashqai 1.2 Tekna (in-budget)",
-      "section": "Cars", "type": "car",
-      "query": "Nissan Qashqai Tekna DIG-T Xtronic", "category_ids": "9801",
-      "min_price": 4000, "max_price": 9000, "reference_price": 7500,
-      "must_include": ["qashqai"],
-      "exclude": ["breaking", "spares", "wheel", "bumper", "door", "mirror", "seat", "part", "mat"]
+      "section": "Cars",
+      "type": "car",
+      "query": "Nissan Qashqai Tekna DIG-T Xtronic",
+      "category_ids": "9801",
+      "min_price": 4000,
+      "max_price": 9000,
+      "reference_price": 7500,
+      "must_include": [
+        "qashqai"
+      ],
+      "exclude": [
+        "breaking",
+        "spares",
+        "wheel",
+        "bumper",
+        "door",
+        "mirror",
+        "seat",
+        "part",
+        "mat"
+      ]
     },
-
     {
       "name": "Vespa",
-      "section": "Scooters", "type": "scooter",
-      "query": "Vespa", "category_ids": "9936",
-      "min_price": 200, "max_price": 4000, "reference_price": 1800,
-      "must_include": ["vespa"],
-      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "diecast", "die cast", "toy"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "won't charge", "wont charge", "needs", "starts but", "no spark", "project", "cutting out", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Vespa",
+      "category_ids": "9936",
+      "min_price": 200,
+      "max_price": 4000,
+      "reference_price": 1800,
+      "must_include": [
+        "vespa"
+      ],
+      "exclude": [
+        "helmet",
+        "gloves",
+        "manual",
+        "brochure",
+        "sticker",
+        "decal",
+        "top box",
+        "model kit",
+        "diecast",
+        "die cast",
+        "toy"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "won't charge",
+        "wont charge",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cutting out",
+        "cuts out"
+      ]
     },
     {
       "name": "Lambretta",
-      "section": "Scooters", "type": "scooter",
-      "query": "Lambretta", "category_ids": "36094",
-      "min_price": 300, "max_price": 5000, "reference_price": 2500,
-      "must_include": ["lambretta"],
-      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "diecast", "die cast", "toy"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "won't charge", "wont charge", "needs", "starts but", "no spark", "project", "cutting out", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Lambretta",
+      "category_ids": "36094",
+      "min_price": 300,
+      "max_price": 5000,
+      "reference_price": 2500,
+      "must_include": [
+        "lambretta"
+      ],
+      "exclude": [
+        "helmet",
+        "gloves",
+        "manual",
+        "brochure",
+        "sticker",
+        "decal",
+        "top box",
+        "model kit",
+        "diecast",
+        "die cast",
+        "toy"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Royal Alloy (GP125 / GP300)",
-      "section": "Scooters", "type": "scooter",
-      "query": "Royal Alloy scooter", "category_ids": "",
-      "min_price": 500, "max_price": 4500, "reference_price": 2500,
-      "must_include": ["royal alloy"],
-      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Royal Alloy scooter",
+      "category_ids": "",
+      "min_price": 500,
+      "max_price": 4500,
+      "reference_price": 2500,
+      "must_include": [
+        "royal alloy"
+      ],
+      "exclude": [
+        "top case",
+        "top box",
+        "topbox",
+        "case",
+        "givi",
+        "kappa",
+        "shad",
+        "oxford",
+        "nannini",
+        "trekker",
+        "outback",
+        "monokey",
+        "dolomiti",
+        "pannier",
+        "luggage",
+        "crash bar",
+        "engine bar",
+        "tank pad",
+        "hugger",
+        "seat cover",
+        "screen protector",
+        "fly screen",
+        "windscreen",
+        "windshield",
+        "rack",
+        "carrier",
+        "backrest",
+        "exhaust",
+        "silencer",
+        "downpipe",
+        "decat",
+        "mudguard",
+        "fender",
+        "chain",
+        "sprocket",
+        "brake pad",
+        "disc pad",
+        "gasket",
+        "bearing",
+        "air filter",
+        "oil filter",
+        "bulb",
+        "indicator",
+        "led strip",
+        "battery",
+        "tyre",
+        "inner tube",
+        "valve",
+        "sticker",
+        "decal",
+        "badge",
+        "manual",
+        "brochure",
+        "key blank",
+        "lock set",
+        "alarm",
+        "paddock stand",
+        "grips",
+        "lever",
+        "mirror",
+        "cover",
+        "floor mat",
+        "apron",
+        "muff"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Scomadi (TL125 / TL200)",
-      "section": "Scooters", "type": "scooter",
-      "query": "Scomadi scooter", "category_ids": "",
-      "min_price": 500, "max_price": 4500, "reference_price": 2500,
-      "must_include": ["scomadi"],
-      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Scomadi scooter",
+      "category_ids": "",
+      "min_price": 500,
+      "max_price": 4500,
+      "reference_price": 2500,
+      "must_include": [
+        "scomadi"
+      ],
+      "exclude": [
+        "top case",
+        "top box",
+        "topbox",
+        "case",
+        "givi",
+        "kappa",
+        "shad",
+        "oxford",
+        "nannini",
+        "trekker",
+        "outback",
+        "monokey",
+        "dolomiti",
+        "pannier",
+        "luggage",
+        "crash bar",
+        "engine bar",
+        "tank pad",
+        "hugger",
+        "seat cover",
+        "screen protector",
+        "fly screen",
+        "windscreen",
+        "windshield",
+        "rack",
+        "carrier",
+        "backrest",
+        "exhaust",
+        "silencer",
+        "downpipe",
+        "decat",
+        "mudguard",
+        "fender",
+        "chain",
+        "sprocket",
+        "brake pad",
+        "disc pad",
+        "gasket",
+        "bearing",
+        "air filter",
+        "oil filter",
+        "bulb",
+        "indicator",
+        "led strip",
+        "battery",
+        "tyre",
+        "inner tube",
+        "valve",
+        "sticker",
+        "decal",
+        "badge",
+        "manual",
+        "brochure",
+        "key blank",
+        "lock set",
+        "alarm",
+        "paddock stand",
+        "grips",
+        "lever",
+        "mirror",
+        "cover",
+        "floor mat",
+        "apron",
+        "muff"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Peugeot Django",
-      "section": "Scooters", "type": "scooter",
-      "query": "Peugeot Django", "category_ids": "",
-      "min_price": 400, "max_price": 4000, "reference_price": 2000,
-      "must_include": ["django"],
-      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Peugeot Django",
+      "category_ids": "",
+      "min_price": 400,
+      "max_price": 4000,
+      "reference_price": 2000,
+      "must_include": [
+        "django"
+      ],
+      "exclude": [
+        "top case",
+        "top box",
+        "topbox",
+        "case",
+        "givi",
+        "kappa",
+        "shad",
+        "oxford",
+        "nannini",
+        "trekker",
+        "outback",
+        "monokey",
+        "dolomiti",
+        "pannier",
+        "luggage",
+        "crash bar",
+        "engine bar",
+        "tank pad",
+        "hugger",
+        "seat cover",
+        "screen protector",
+        "fly screen",
+        "windscreen",
+        "windshield",
+        "rack",
+        "carrier",
+        "backrest",
+        "exhaust",
+        "silencer",
+        "downpipe",
+        "decat",
+        "mudguard",
+        "fender",
+        "chain",
+        "sprocket",
+        "brake pad",
+        "disc pad",
+        "gasket",
+        "bearing",
+        "air filter",
+        "oil filter",
+        "bulb",
+        "indicator",
+        "led strip",
+        "battery",
+        "tyre",
+        "inner tube",
+        "valve",
+        "sticker",
+        "decal",
+        "badge",
+        "manual",
+        "brochure",
+        "key blank",
+        "lock set",
+        "alarm",
+        "paddock stand",
+        "grips",
+        "lever",
+        "mirror",
+        "cover",
+        "floor mat",
+        "apron",
+        "muff"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Honda scooters (SH / PCX / Forza / Super Cub)",
-      "section": "Scooters", "type": "scooter",
-      "query": "Honda scooter", "category_ids": "9806",
-      "min_price": 400, "max_price": 6000, "reference_price": 2800,
-      "must_include": ["sh125", "sh 125", "sh150", "sh 150", "sh300", "pcx", "forza", "super cub", "supercub", "c125", "vision", "lead"],
-      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Honda scooter",
+      "category_ids": "9806",
+      "min_price": 400,
+      "max_price": 6000,
+      "reference_price": 2800,
+      "must_include": [
+        "sh125",
+        "sh 125",
+        "sh150",
+        "sh 150",
+        "sh300",
+        "pcx",
+        "forza",
+        "super cub",
+        "supercub",
+        "c125",
+        "vision",
+        "lead"
+      ],
+      "exclude": [
+        "helmet",
+        "gloves",
+        "manual",
+        "brochure",
+        "sticker",
+        "decal",
+        "top box",
+        "model kit",
+        "toy"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Yamaha scooters (NMAX / XMAX / Tricity)",
-      "section": "Scooters", "type": "scooter",
-      "query": "Yamaha scooter", "category_ids": "9809",
-      "min_price": 400, "max_price": 6500, "reference_price": 3200,
-      "must_include": ["nmax", "n-max", "xmax", "x-max", "tricity", "d'elight", "delight", "cygnus", "aerox"],
-      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Yamaha scooter",
+      "category_ids": "9809",
+      "min_price": 400,
+      "max_price": 6500,
+      "reference_price": 3200,
+      "must_include": [
+        "nmax",
+        "n-max",
+        "xmax",
+        "x-max",
+        "tricity",
+        "d'elight",
+        "delight",
+        "cygnus",
+        "aerox"
+      ],
+      "exclude": [
+        "helmet",
+        "gloves",
+        "manual",
+        "brochure",
+        "sticker",
+        "decal",
+        "top box",
+        "model kit",
+        "toy"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "BMW C400 (X / GT)",
-      "section": "Scooters", "type": "scooter",
-      "query": "BMW C400 scooter", "category_ids": "9915",
-      "min_price": 1500, "max_price": 7500, "reference_price": 4500,
-      "must_include": ["c400", "c 400"],
-      "exclude": ["helmet", "gloves", "manual", "brochure", "sticker", "decal", "top box", "model kit", "toy"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "BMW C400 scooter",
+      "category_ids": "9915",
+      "min_price": 1500,
+      "max_price": 7500,
+      "reference_price": 4500,
+      "must_include": [
+        "c400",
+        "c 400"
+      ],
+      "exclude": [
+        "helmet",
+        "gloves",
+        "manual",
+        "brochure",
+        "sticker",
+        "decal",
+        "top box",
+        "model kit",
+        "toy"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
     {
       "name": "Piaggio (Beverly / Medley / Liberty)",
-      "section": "Scooters", "type": "scooter",
-      "query": "Piaggio scooter", "category_ids": "",
-      "min_price": 400, "max_price": 5500, "reference_price": 2500,
-      "must_include": ["beverly", "medley", "liberty"],
-      "exclude": ["exhaust", "silencer", "shock", "mirror", "seat cover", "rack", "carrier", "panel", "fairing", "screen", "battery", "tyre", "sticker", "decal", "manual", "helmet", "top box"],
-      "fault_keywords": ["spares or repair", "spares", "repair", "non runner", "non-runner", "not running", "won't start", "wont start", "needs", "starts but", "no spark", "project", "cuts out"]
+      "section": "Scooters",
+      "type": "scooter",
+      "query": "Piaggio scooter",
+      "category_ids": "",
+      "min_price": 400,
+      "max_price": 5500,
+      "reference_price": 2500,
+      "must_include": [
+        "beverly",
+        "medley",
+        "liberty"
+      ],
+      "exclude": [
+        "top case",
+        "top box",
+        "topbox",
+        "case",
+        "givi",
+        "kappa",
+        "shad",
+        "oxford",
+        "nannini",
+        "trekker",
+        "outback",
+        "monokey",
+        "dolomiti",
+        "pannier",
+        "luggage",
+        "crash bar",
+        "engine bar",
+        "tank pad",
+        "hugger",
+        "seat cover",
+        "screen protector",
+        "fly screen",
+        "windscreen",
+        "windshield",
+        "rack",
+        "carrier",
+        "backrest",
+        "exhaust",
+        "silencer",
+        "downpipe",
+        "decat",
+        "mudguard",
+        "fender",
+        "chain",
+        "sprocket",
+        "brake pad",
+        "disc pad",
+        "gasket",
+        "bearing",
+        "air filter",
+        "oil filter",
+        "bulb",
+        "indicator",
+        "led strip",
+        "battery",
+        "tyre",
+        "inner tube",
+        "valve",
+        "sticker",
+        "decal",
+        "badge",
+        "manual",
+        "brochure",
+        "key blank",
+        "lock set",
+        "alarm",
+        "paddock stand",
+        "grips",
+        "lever",
+        "mirror",
+        "cover",
+        "floor mat",
+        "apron",
+        "muff"
+      ],
+      "fault_keywords": [
+        "spares or repair",
+        "spares",
+        "repair",
+        "non runner",
+        "non-runner",
+        "not running",
+        "won't start",
+        "wont start",
+        "needs",
+        "starts but",
+        "no spark",
+        "project",
+        "cuts out"
+      ]
     },
-
     {
-      "name": "Sn\u00fczPod bedside crib (used)",
-      "section": "Nursery", "type": "goods",
-      "query": "SnuzPod crib", "category_ids": "",
-      "min_price": 40, "max_price": 200, "reference_price": 150,
-      "must_include": ["snuz"],
-      "exclude": ["mattress only", "sheet", "cover only", "spare"]
+      "name": "Chaise longue sofa",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "vintage chaise longue sofa",
+      "category_ids": "",
+      "min_price": 80,
+      "max_price": 1600,
+      "reference_price": 0,
+      "must_include": [
+        "chaise"
+      ],
+      "exclude": [
+        "cover only",
+        "cushion only",
+        "cover set",
+        "dolls",
+        "miniature",
+        "dog bed"
+      ]
     },
     {
-      "name": "Cybex Gazelle S pram (used)",
-      "section": "Nursery", "type": "goods",
-      "query": "Cybex Gazelle S", "category_ids": "",
-      "min_price": 150, "max_price": 700, "reference_price": 550,
-      "must_include": ["gazelle"],
-      "exclude": ["raincover only", "cup holder", "adapter only", "seat liner"]
+      "name": "Wardrobe – mid-century",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "mid century wardrobe teak",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1200,
+      "reference_price": 0,
+      "must_include": [
+        "wardrobe"
+      ],
+      "exclude": [
+        "door only",
+        "handle",
+        "hinge",
+        "dolls",
+        "flat pack",
+        "rail only"
+      ]
     },
     {
-      "name": "Cybex Cloud T + Base T car seat (used)",
-      "section": "Nursery", "type": "goods",
-      "query": "Cybex Cloud T Base T", "category_ids": "",
-      "min_price": 80, "max_price": 350, "reference_price": 280,
-      "must_include": ["cloud t"],
-      "exclude": ["cover only", "newborn insert only"]
+      "name": "Wardrobe – antique / Victorian",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "antique Victorian wardrobe",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1500,
+      "reference_price": 0,
+      "must_include": [
+        "wardrobe"
+      ],
+      "exclude": [
+        "door only",
+        "handle",
+        "hinge",
+        "dolls",
+        "flat pack",
+        "rail only"
+      ]
     },
-
     {
-      "name": "Reclaimed / engineered oak flooring",
-      "section": "Renovation", "type": "goods",
-      "query": "engineered oak herringbone flooring", "category_ids": "",
-      "min_price": 60, "max_price": 900, "reference_price": 0,
-      "must_include": ["oak"],
-      "exclude": ["laminate", "sticker", "sample", "1m", "single plank"]
+      "name": "Chest of drawers – mid-century",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "mid century chest of drawers teak",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 1000,
+      "reference_price": 0,
+      "must_include": [
+        "chest of drawers",
+        "tallboy",
+        "drawers"
+      ],
+      "exclude": [
+        "handle",
+        "knob",
+        "runner",
+        "liner",
+        "dolls",
+        "miniature"
+      ]
+    },
+    {
+      "name": "Chest of drawers – antique",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "antique chest of drawers",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 1000,
+      "reference_price": 0,
+      "must_include": [
+        "chest of drawers",
+        "tallboy",
+        "drawers"
+      ],
+      "exclude": [
+        "handle",
+        "knob",
+        "runner",
+        "liner",
+        "dolls",
+        "miniature"
+      ]
+    },
+    {
+      "name": "Dining table & chairs – mid-century",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "mid century dining table chairs teak",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1600,
+      "reference_price": 0,
+      "must_include": [
+        "dining"
+      ],
+      "exclude": [
+        "cover",
+        "protector",
+        "dolls",
+        "runner only",
+        "cloth"
+      ]
+    },
+    {
+      "name": "Dining table & chairs – antique",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "antique dining table chairs",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1600,
+      "reference_price": 0,
+      "must_include": [
+        "dining"
+      ],
+      "exclude": [
+        "cover",
+        "protector",
+        "dolls",
+        "runner only",
+        "cloth"
+      ]
+    },
+    {
+      "name": "Old sitting chairs (armchairs / cocktail chairs)",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "vintage armchair cocktail chair",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 900,
+      "reference_price": 0,
+      "must_include": [
+        "armchair",
+        "cocktail chair",
+        "occasional chair",
+        "fireside chair"
+      ],
+      "exclude": [
+        "cover only",
+        "cushion only",
+        "dolls",
+        "miniature"
+      ]
+    },
+    {
+      "name": "Entryway bench with coat hooks",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "hallway bench coat rack hooks",
+      "category_ids": "",
+      "min_price": 25,
+      "max_price": 500,
+      "reference_price": 0,
+      "must_include": [
+        "bench",
+        "hall tree",
+        "monk"
+      ],
+      "exclude": [
+        "cushion only",
+        "garden",
+        "dolls"
+      ]
+    },
+    {
+      "name": "IKEA METOD compatible doors",
+      "section": "Kitchen",
+      "type": "goods",
+      "query": "METOD kitchen doors",
+      "category_ids": "",
+      "min_price": 10,
+      "max_price": 400,
+      "reference_price": 0,
+      "must_include": [
+        "metod"
+      ],
+      "exclude": [
+        "hinge only",
+        "leg only",
+        "screw",
+        "bracket only"
+      ]
+    },
+    {
+      "name": "Splashback tiles (metro / zellige / encaustic)",
+      "section": "Kitchen",
+      "type": "goods",
+      "query": "metro zellige splashback tiles",
+      "category_ids": "",
+      "min_price": 15,
+      "max_price": 400,
+      "reference_price": 0,
+      "must_include": [
+        "tile"
+      ],
+      "exclude": [
+        "sample",
+        "single tile",
+        "sticker",
+        "transfer",
+        "trim only"
+      ]
+    },
+    {
+      "name": "Larder / pantry / Welsh dresser (fits 50cm machine)",
+      "section": "Kitchen",
+      "type": "goods",
+      "query": "Welsh dresser larder pantry cupboard",
+      "category_ids": "",
+      "min_price": 80,
+      "max_price": 1500,
+      "reference_price": 0,
+      "must_include": [
+        "dresser",
+        "larder",
+        "pantry"
+      ],
+      "exclude": [
+        "dolls",
+        "miniature",
+        "spice rack",
+        "top only",
+        "rack only"
+      ]
     },
     {
       "name": "Reclaimed Victorian quarry tiles",
-      "section": "Renovation", "type": "goods",
-      "query": "reclaimed quarry tiles", "category_ids": "",
-      "min_price": 30, "max_price": 600, "reference_price": 0,
-      "must_include": ["quarry"],
-      "exclude": ["sample", "single tile"]
+      "section": "Kitchen",
+      "type": "goods",
+      "query": "reclaimed quarry tiles",
+      "category_ids": "",
+      "min_price": 30,
+      "max_price": 600,
+      "reference_price": 0,
+      "must_include": [
+        "quarry"
+      ],
+      "exclude": [
+        "sample",
+        "single tile"
+      ]
     },
     {
-      "name": "IKEA METOD units (ex-display / spare)",
-      "section": "Renovation", "type": "goods",
-      "query": "IKEA METOD cabinet", "category_ids": "",
-      "min_price": 20, "max_price": 400, "reference_price": 0,
-      "must_include": ["metod"],
-      "exclude": ["hinge only", "leg only", "screw"]
+      "name": "Front door – Victorian / period",
+      "section": "Doors & period features",
+      "type": "goods",
+      "query": "Victorian front door reclaimed",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1500,
+      "reference_price": 0,
+      "must_include": [
+        "front door",
+        "door"
+      ],
+      "exclude": [
+        "car",
+        "handle",
+        "knocker",
+        "letterbox",
+        "letter plate",
+        "hinge",
+        "knob",
+        "cabinet",
+        "wardrobe",
+        "cupboard",
+        "dolls",
+        "outdoor",
+        "garage",
+        "shed",
+        "uPVC glass only"
+      ]
+    },
+    {
+      "name": "Transom / fanlight (over-door window)",
+      "section": "Doors & period features",
+      "type": "goods",
+      "query": "Victorian fanlight over door window",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 800,
+      "reference_price": 0,
+      "must_include": [
+        "fanlight",
+        "transom"
+      ],
+      "exclude": [
+        "light bulb",
+        "dolls",
+        "car"
+      ]
+    },
+    {
+      "name": "Table & floor lamps – mid-century",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "mid century table lamp floor lamp",
+      "category_ids": "",
+      "min_price": 20,
+      "max_price": 450,
+      "reference_price": 0,
+      "must_include": [
+        "lamp"
+      ],
+      "exclude": [
+        "bulb only",
+        "shade only",
+        "dolls",
+        "salt lamp",
+        "lava"
+      ]
+    },
+    {
+      "name": "Ceiling lights & pendants – vintage",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage pendant ceiling light fitting",
+      "category_ids": "",
+      "min_price": 20,
+      "max_price": 500,
+      "reference_price": 0,
+      "must_include": [
+        "pendant",
+        "ceiling light",
+        "light fitting",
+        "chandelier"
+      ],
+      "exclude": [
+        "bulb only",
+        "shade only",
+        "dolls"
+      ]
+    },
+    {
+      "name": "Artwork (prints / paintings)",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage original painting framed print",
+      "category_ids": "",
+      "min_price": 25,
+      "max_price": 800,
+      "reference_price": 0,
+      "must_include": [
+        "painting",
+        "print",
+        "lithograph",
+        "watercolour",
+        "etching"
+      ],
+      "exclude": [
+        "poster reproduction",
+        "canvas blank",
+        "dolls",
+        "wall sticker",
+        "paint by numbers"
+      ]
+    },
+    {
+      "name": "Ceramics / studio pottery",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage studio pottery ceramic vase",
+      "category_ids": "",
+      "min_price": 15,
+      "max_price": 500,
+      "reference_price": 0,
+      "must_include": [
+        "pottery",
+        "ceramic",
+        "vase",
+        "stoneware"
+      ],
+      "exclude": [
+        "dolls",
+        "planter plastic",
+        "tile"
+      ]
+    },
+    {
+      "name": "Glassware (decanters / sets)",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage glassware decanter set",
+      "category_ids": "",
+      "min_price": 15,
+      "max_price": 400,
+      "reference_price": 0,
+      "must_include": [
+        "decanter",
+        "glassware",
+        "tumbler",
+        "glasses"
+      ],
+      "exclude": [
+        "reading glasses",
+        "sunglasses",
+        "spectacle",
+        "dolls"
+      ]
+    },
+    {
+      "name": "Plateware / dinner sets",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage dinner set tableware",
+      "category_ids": "",
+      "min_price": 20,
+      "max_price": 400,
+      "reference_price": 0,
+      "must_include": [
+        "dinner set",
+        "dinnerware",
+        "tableware",
+        "dinner service"
+      ],
+      "exclude": [
+        "dolls",
+        "plastic",
+        "melamine",
+        "single plate"
+      ]
+    },
+    {
+      "name": "SnüzPod bedside crib (NEW only)",
+      "section": "Nursery",
+      "type": "goods",
+      "query": "SnuzPod crib",
+      "category_ids": "",
+      "conditions": "NEW",
+      "min_price": 80,
+      "max_price": 220,
+      "reference_price": 180,
+      "must_include": [
+        "snuz"
+      ],
+      "exclude": [
+        "mattress only",
+        "sheet",
+        "cover only",
+        "spare"
+      ]
     }
   ],
-
   "feeds": [
     {
-      "name": "Amazon price drops (your nursery watches)",
-      "section": "Nursery", "source": "CamelCamelCamel", "tag_label": "price drop",
+      "name": "Amazon price drops (your watches)",
+      "section": "Nursery",
+      "source": "CamelCamelCamel",
+      "tag_label": "price drop",
       "url": "PASTE_CAMELCAMELCAMEL_RSS_URL_HERE"
     },
     {
-      "name": "HotUKDeals \u2013 nursery / baby keywords",
-      "section": "Nursery", "source": "HotUKDeals", "tag_label": "community deal",
-      "url": "PASTE_HOTUKDEALS_RSS_URL_HERE"
-    },
-    {
-      "name": "HotUKDeals \u2013 flooring / paint / kitchen",
-      "section": "Renovation", "source": "HotUKDeals", "tag_label": "community deal",
+      "name": "HotUKDeals – kitchen / interiors keywords",
+      "section": "Kitchen",
+      "source": "HotUKDeals",
+      "tag_label": "community deal",
       "url": "PASTE_HOTUKDEALS_RSS_URL_HERE"
     }
   ]
