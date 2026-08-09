@@ -518,23 +518,39 @@
       ]
     },
     {
-      "name": "Chaise longue sofa",
+      "name": "Corner / chaise-end sofa (L-shape)",
       "section": "Furniture",
       "type": "goods",
-      "query": "vintage chaise longue sofa",
+      "query": "corner chaise sofa L shape",
       "category_ids": "",
-      "min_price": 80,
+      "min_price": 100,
       "max_price": 1600,
       "reference_price": 0,
       "must_include": [
-        "chaise"
+        "corner sofa",
+        "chaise sofa",
+        "chaise end",
+        "l shape sofa",
+        "l-shape sofa",
+        "l shaped sofa",
+        "corner group",
+        "corner suite"
       ],
       "exclude": [
         "cover only",
+        "covers only",
         "cushion only",
-        "cover set",
+        "cushions only",
+        "replacement cover",
+        "sofa cover",
+        "rattan",
+        "garden",
+        "outdoor",
+        "inflatable",
         "dolls",
         "miniature",
+        "bean bag",
+        "pet bed",
         "dog bed"
       ]
     },
