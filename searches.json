@@ -705,23 +705,44 @@
       ]
     },
     {
-      "name": "Entryway bench with coat hooks",
+      "name": "Monk's bench / hall settle (storage + hooks)",
       "section": "Furniture",
       "type": "goods",
-      "query": "hallway bench coat rack hooks",
+      "query": "monks bench hall settle painted",
       "category_ids": "",
-      "min_price": 25,
-      "max_price": 500,
+      "min_price": 90,
+      "max_price": 1200,
       "reference_price": 0,
       "must_include": [
-        "bench",
-        "hall tree",
-        "monk"
+        "monk",
+        "settle",
+        "hall seat",
+        "hall stand",
+        "hall bench",
+        "pew"
       ],
       "exclude": [
+        "shoe cabinet",
+        "shoe rack",
+        "shoe storage",
+        "mdf",
+        "metal frame",
+        "flat pack",
+        "flatpack",
+        "rack",
+        "clothes rail",
+        "garment",
+        "otto man kids",
+        "kids",
+        "childrens",
+        "dolls",
         "cushion only",
+        "cover only",
         "garden",
-        "dolls"
+        "outdoor",
+        "plastic",
+        "faux leather",
+        "ottoman storage box"
       ]
     },
     {
@@ -983,30 +1004,235 @@
       ]
     },
     {
-      "name": "SnüzPod bedside crib (NEW only)",
-      "section": "Nursery",
+      "name": "Bed frame – mid-century",
+      "section": "Furniture",
       "type": "goods",
-      "query": "SnuzPod crib",
+      "query": "mid century bed frame teak",
       "category_ids": "",
-      "conditions": "NEW",
-      "min_price": 80,
-      "max_price": 220,
-      "reference_price": 180,
+      "min_price": 60,
+      "max_price": 900,
+      "reference_price": 0,
       "must_include": [
-        "snuz"
+        "bed frame",
+        "bedstead",
+        "headboard"
       ],
       "exclude": [
         "mattress only",
-        "sheet",
-        "cover only",
-        "spare"
+        "mattress topper",
+        "cot",
+        "toddler",
+        "bunk",
+        "air bed",
+        "inflatable",
+        "dolls",
+        "cover only"
+      ]
+    },
+    {
+      "name": "Bed frame – antique / cast iron / brass",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "antique cast iron brass bed frame",
+      "category_ids": "",
+      "min_price": 60,
+      "max_price": 1200,
+      "reference_price": 0,
+      "must_include": [
+        "bed frame",
+        "bedstead",
+        "cast iron bed",
+        "brass bed"
+      ],
+      "exclude": [
+        "mattress only",
+        "mattress topper",
+        "cot",
+        "toddler",
+        "bunk",
+        "air bed",
+        "inflatable",
+        "dolls",
+        "cover only"
+      ]
+    },
+    {
+      "name": "Coffee table – mid-century",
+      "section": "Furniture",
+      "type": "goods",
+      "query": "mid century coffee table teak",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 800,
+      "reference_price": 0,
+      "must_include": [
+        "coffee table"
+      ],
+      "exclude": [
+        "cover",
+        "dolls",
+        "legs only",
+        "glass top only",
+        "protector"
+      ]
+    },
+    {
+      "name": "Sit-stand / standing desk",
+      "section": "Study & tech",
+      "type": "goods",
+      "query": "sit stand desk electric height adjustable oak",
+      "category_ids": "",
+      "min_price": 80,
+      "max_price": 700,
+      "reference_price": 0,
+      "must_include": [
+        "standing desk",
+        "sit stand",
+        "sit-stand",
+        "height adjustable desk",
+        "adjustable desk"
+      ],
+      "exclude": [
+        "desk converter",
+        "monitor riser",
+        "riser only",
+        "mat",
+        "doll",
+        "cable tray only"
+      ]
+    },
+    {
+      "name": "Curved monitor 32\"+ / ultrawide",
+      "section": "Study & tech",
+      "type": "goods",
+      "query": "curved monitor 32 inch ultrawide",
+      "category_ids": "",
+      "min_price": 80,
+      "max_price": 900,
+      "reference_price": 0,
+      "must_include": [
+        "curved"
+      ],
+      "exclude": [
+        "27 inch",
+        "24 inch",
+        "25 inch",
+        "monitor arm",
+        "monitor stand",
+        "mount",
+        "bracket",
+        "screen protector",
+        "riser"
+      ]
+    },
+    {
+      "name": "Tile trim / edging (brass / matt black)",
+      "section": "Kitchen",
+      "type": "goods",
+      "query": "brass tile trim edging",
+      "category_ids": "",
+      "min_price": 8,
+      "max_price": 150,
+      "reference_price": 0,
+      "must_include": [
+        "tile trim",
+        "tile edging",
+        "tile edge"
+      ],
+      "exclude": [
+        "sample",
+        "cutter",
+        "spacer",
+        "adhesive",
+        "grout",
+        "clips"
+      ]
+    },
+    {
+      "name": "Cast iron / column radiator",
+      "section": "Radiators & heating",
+      "type": "goods",
+      "query": "cast iron column radiator",
+      "category_ids": "",
+      "min_price": 40,
+      "max_price": 800,
+      "reference_price": 0,
+      "must_include": [
+        "radiator"
+      ],
+      "exclude": [
+        "bleed key",
+        "radiator paint",
+        "cleaner",
+        "reflector foil",
+        "radiator brush",
+        "towel rail",
+        "fan heater",
+        "oil filled"
+      ]
+    },
+    {
+      "name": "Radiator accessories (valves / covers)",
+      "section": "Radiators & heating",
+      "type": "goods",
+      "query": "radiator valve brass radiator cover",
+      "category_ids": "",
+      "min_price": 10,
+      "max_price": 300,
+      "reference_price": 0,
+      "must_include": [
+        "radiator"
+      ],
+      "exclude": [
+        "fan heater",
+        "oil filled",
+        "towel rail only"
+      ]
+    },
+    {
+      "name": "Statement décor / objets (brass, marble)",
+      "section": "Lighting, art & ceramics",
+      "type": "goods",
+      "query": "vintage brass marble candlestick decanter ornament",
+      "category_ids": "",
+      "min_price": 20,
+      "max_price": 500,
+      "reference_price": 0,
+      "must_include": [
+        "candlestick",
+        "candelabra",
+        "decanter",
+        "brass ornament",
+        "marble",
+        "travertine",
+        "alabaster",
+        "sculpture",
+        "figurine",
+        "trinket",
+        "bud vase",
+        "bookend",
+        "cloche",
+        "apothecary"
+      ],
+      "exclude": [
+        "earring",
+        "necklace",
+        "ring",
+        "bracelet",
+        "watch",
+        "phone case",
+        "tile",
+        "cleaner",
+        "polish",
+        "fireplace surround",
+        "dolls"
       ]
     }
   ],
   "feeds": [
     {
       "name": "Amazon price drops (your watches)",
-      "section": "Nursery",
+      "section": "Study & tech",
       "source": "CamelCamelCamel",
       "tag_label": "price drop",
       "url": "PASTE_CAMELCAMELCAMEL_RSS_URL_HERE"
