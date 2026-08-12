@@ -207,10 +207,27 @@ function render(){
 function setFilter(f){state.filter=f;
   document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.f===f)));render();}
 
+function applianceItem(m){
+  return {title:m.title, price:m.price, url:m.url, image:"", source:m.seller, location:"",
+          new:false, score:72, tags:[],
+          headline:"Grade "+m.grade+" ("+m.raw_grade+")"+(m.flag?" \u00b7 "+m.flag:"")};
+}
+async function loadAppliances(){
+  try{
+    const r=await fetch("./appliances.json?"+Date.now()); if(!r.ok) return [];
+    const a=await r.json();
+    const all=[].concat(a.cooker||[], a.chilled||[]);
+    const byLabel={};
+    all.forEach(m=>{(byLabel[m.label]=byLabel[m.label]||[]).push(applianceItem(m));});
+    return Object.entries(byLabel).map(([name,items])=>({name,section:"Graded appliances \u2014 outlet",count:items.length,items}));
+  }catch(e){ return []; }
+}
 async function load(){
   try{
     const r=await fetch("./data.json?"+Date.now()); if(!r.ok) throw 0;
     state.data=await r.json();
+    const appl=await loadAppliances();
+    if(appl.length) state.data.searches = appl.concat(state.data.searches);
     const all=state.data.searches.reduce((n,s)=>n+s.items.length,0);
     const fresh=state.data.searches.reduce((n,s)=>n+s.items.filter(i=>i.new).length,0);
     document.getElementById("sub").innerHTML=`<b>${all}</b> tracked \u00b7 <b>${fresh}</b> new \u00b7 updated ${when(state.data.generated_at)}`;
