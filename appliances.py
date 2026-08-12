@@ -66,10 +66,10 @@ ACTIVE_SELLERS = [v for v in SELLERS.values() if not v.startswith("PASTE_")]
 # ---------------------------------------------------------------------------
 TARGETS = [
     {"key": "cooker", "group": "cooker", "label": "Range cooker",
-     "queries": ["Stoves Richmond Deluxe 100", "Rangemaster Classic Deluxe 100"],
+     "queries": ["Stoves Richmond Deluxe 100", "Rangemaster Classic Deluxe 100", "range cooker 100cm"],
      "ceiling": 900, "grades": ["A", "B"], "exclude": ["60cm", "90cm"], "flag": ""},
     {"key": "fridge", "group": "chilled", "label": "American fridge freezer",
-     "queries": ["Samsung American fridge freezer", "LG American fridge freezer"],
+     "queries": ["American fridge freezer", "Samsung American fridge freezer", "LG American fridge freezer"],
      "ceiling": 650, "grades": ["A", "B", "C"], "exclude": [],
      "flag": "Energy rating (A-E) is NOT in the title - check it on click."},
     {"key": "hood", "group": "chilled", "label": "100cm cooker hood",
