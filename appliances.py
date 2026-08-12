@@ -240,7 +240,7 @@ def evaluate(token, summary, target):
 
 def send_email(subject: str, body: str) -> None:
     user, pw = os.environ.get("IMAP_USER"), os.environ.get("IMAP_PASS")
-    to = os.environ.get("ALERT_TO", user)
+    to = os.environ.get("ALERT_TO") or user   # empty ALERT_TO secret -> fall back to self
     if not (user and pw):
         print("No IMAP_USER/IMAP_PASS set - can't send email. Alerts printed above.")
         return
