@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T11:25:02.398813+00:00",
+  "generated_at": "2026-08-12T11:33:24.512017+00:00",
   "cooker": [],
   "chilled": [
     {
@@ -13,84 +13,6 @@
       "url": "https://www.ebay.co.uk/itm/137566696149?_skw=100cm+cooker+hood&hash=item20079d32d5:g:aIgAAeSwUp5qdgpm",
       "title": "CDA ECP102SS Refurbished  100cm Curved Glass Chimney Cooker Hood Sta A2/ECP102SS",
       "flag": ""
-    },
-    {
-      "id": "v1|358892095136|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "B",
-      "raw_grade": "REFURB-B",
-      "price": 409.35,
-      "seller": "Currys Clearance",
-      "url": "https://www.ebay.co.uk/itm/358892095136?_skw=American+fridge+freezer&hash=item538fa2c6a0:g:sBwAAeSwbEhqdKxO",
-      "title": "KENWOOD KSBSXD25 American-Style Fridge Freezer - Inox - REFURB-B",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
-    },
-    {
-      "id": "v1|366598752236|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "C",
-      "raw_grade": "Good",
-      "price": 479.9,
-      "seller": "Hughes Clearance Outlet",
-      "url": "https://www.ebay.co.uk/itm/366598752236?_skw=American+fridge+freezer&hash=item555afd07ec:g:T3MAAeSwhyNqevoc",
-      "title": "Hisense RS741N4WCE Fridge Freezer American Style Total No Frost [ID7011283814]",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
-    },
-    {
-      "id": "v1|318712101453|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "C",
-      "raw_grade": "Good",
-      "price": 539.69,
-      "seller": "Hughes Clearance Outlet",
-      "url": "https://www.ebay.co.uk/itm/318712101453?_skw=American+fridge+freezer&hash=item4a34b8ba4d:g:tI4AAeSwEdFp9Mju&amdata=enc%3AAQALAAAA8ACCtXRWQnOEpyOqnQQ8KGbsbNUu3b05pIf0xpxB%2B%2FPvy2kuM16Dd%2BQc9H23sOBGSPWXqC2J3CB0NYEUh3RmkmxRPNuJQN1ipWKgHkQ5o3NuQUQHO%2FEX3KYeB5OBZTEdG48AOCpQFOx5jmhI6Eqr8TR%2F8ucoz%2BHq1P84mae47S2hntaeI%2BOUmchHO6B%2FzciMi8UbhpB0d8iW2boLLqQK%2FKqyjPqgs9YFpidE%2FVuxgg9oTaK5Ylqs7wiPuYs0pUsfQo0ArP3DLDmU2eLS%2B5OW%2FoX%2FxLOmsM5PG6VtJeLE6of1hq0dxCqGQUpPksnYitN38g%3D%3D",
-      "title": "Smeg FQI60KD Fridge Freezer American 50/50 No Frost [ID2111167093]",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
-    },
-    {
-      "id": "v1|800485473930|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "C",
-      "raw_grade": "Good",
-      "price": 554.69,
-      "seller": "Hughes Clearance Outlet",
-      "url": "https://www.ebay.co.uk/itm/800485473930?_skw=American+fridge+freezer&hash=itemba60a6fe8a:g:BLIAAeSwyWlqByug&amdata=enc%3AAQALAAAA8ACCtXRWQnOEpyOqnQQ8KGbfTXMqhfSQJAbJPK%2FwqDGvfUumdqHxqBLcwnsn02NyAvRgLp9MqcdyDLpBYWljrX5vJnyPzT%2BLla3c5vhHGyFYKvNAP6nw9r%2FQt%2BaXL9UksnhiA53gmfvXE6U%2Bo9o7GDKmDr5ntxfN6FG4FY0f9bRiWu32c2vJIQpmfmI%2Ft5WpwhhbwYbFzY73b0Eo8V5lSOIYwujyRQrNWfbikd8BDWwVq9yHvrYwgrVRHRAGoKrfLiOV3lJagRClpK1tLpyb3IhzZAmR6W%2B9zxkJHce6oAZFZwQHTfIR8khiR8K6wptHIQ%3D%3D",
-      "title": "Hisense RQ5P640SYSD Fridge Freezer American 50/50 Total No Frost [ID2111167744]",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
-    },
-    {
-      "id": "v1|318677158227|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "B",
-      "raw_grade": "Very Good",
-      "price": 554.9,
-      "seller": "Hughes Clearance Outlet",
-      "url": "https://www.ebay.co.uk/itm/318677158227?_skw=American+fridge+freezer&hash=item4a32a38953:g:PbMAAeSwtxVqcgFY&amdata=enc%3AAQALAAAA8ACCtXRWQnOEpyOqnQQ8KGZn1fadZ9x4%2FpizGBfu6rq5wFlNWzONaDld3rjwB2q5X8BKCdZqiXKxOZe4AHn%2FWU3lEm0tcrYOytXSD96UhbKU8E%2BzctxK5RJhnSgX7RLg5ek2JEN96s3ltoTDvddKsF4ie6mqGCYIMSixczIqxt3nSFWsaGlsd1mS%2BKm0hj%2FCiP%2Ftkmp1KijBCZdFfvVV5lcw%2Ft7h8VKbnk%2BYJ%2BJsSKHWzZ%2Fq1W1yWwcrj1WpG6oeZTYVnuM5bTQrl3s8wsi%2BV9KTqKXPQEpz51T3qIBJSV%2BZ3muAfycWxT%2F21l4XuuZLdw%3D%3D",
-      "title": "Hisense RF749N4SWFE Fridge Freezer American 60/40 Total No Frost [ID2111292384]",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
-    },
-    {
-      "id": "v1|358882220377|0",
-      "label": "American fridge freezer",
-      "model_query": "American fridge freezer",
-      "grade": "B",
-      "raw_grade": "REFURB-B",
-      "price": 604.35,
-      "seller": "Currys Clearance",
-      "url": "https://www.ebay.co.uk/itm/358882220377?_skw=American+fridge+freezer&hash=item538f0c1959:g:uT4AAeSwdJpqcdAT",
-      "title": "HISENSE PureFlat RS818N4TIE American-Style Smart Fridge Freezer- REFURB-B",
-      "flag": "Energy rating (A-E) is NOT in the title - check it on click.",
-      "reason": "new"
     }
   ]
 }
