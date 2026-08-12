@@ -1,0 +1,42 @@
+name: appliances-cooker
+
+on:
+  schedule:
+    # Every 2h across the day. Cron is UTC; 07-21 UTC ~= 08:00-22:00 BST.
+    - cron: "0 7-21/2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: forecourt-appliances
+  cancel-in-progress: false
+
+jobs:
+  cooker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Poll cooker
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          IMAP_USER: ${{ secrets.IMAP_USER }}   # reused as Gmail SMTP login
+          IMAP_PASS: ${{ secrets.IMAP_PASS }}   # the Gmail app password
+          ALERT_TO: ${{ secrets.ALERT_TO }}
+        run: python appliances.py --group cooker
+      - name: Commit state
+        run: |
+          git config user.name "forecourt-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state/appliance_state.json docs/appliances.json || true
+          if git diff --cached --quiet; then echo "No changes."; else
+            git commit -m "Appliances (cooker) $(date -u +%FT%TZ)"
+            git pull --rebase --autostash origin main || true
+            git push
+          fi
