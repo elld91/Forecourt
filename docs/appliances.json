@@ -1,4 +1,19 @@
 {
-  "generated_at": "2026-08-12T10:59:46.708782+00:00",
-  "cooker": []
+  "generated_at": "2026-08-12T11:00:19.145853+00:00",
+  "cooker": [],
+  "chilled": [
+    {
+      "id": "v1|137566696149|0",
+      "label": "100cm cooker hood",
+      "model_query": "100cm cooker hood",
+      "grade": "B",
+      "raw_grade": "A2",
+      "price": 179.97,
+      "seller": "Appliances Direct",
+      "url": "https://www.ebay.co.uk/itm/137566696149?_skw=100cm+cooker+hood&hash=item20079d32d5:g:aIgAAeSwUp5qdgpm",
+      "title": "CDA ECP102SS Refurbished  100cm Curved Glass Chimney Cooker Hood Sta A2/ECP102SS",
+      "flag": "",
+      "reason": "new"
+    }
+  ]
 }
