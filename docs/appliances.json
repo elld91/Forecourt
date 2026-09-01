@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-09-01T16:10:36.607625+00:00",
+  "generated_at": "2026-09-01T17:09:06.909028+00:00",
   "cooker": [
-    {
-      "id": "v1|137662999734|0",
-      "label": "Range cooker",
-      "model_query": "range cooker 100cm",
-      "grade": "B",
-      "raw_grade": "A2",
-      "price": 523.97,
-      "seller": "Appliances Direct",
-      "url": "https://www.ebay.co.uk/itm/137662999734?_skw=range+cooker+100cm&hash=item200d5aacb6:g:pwUAAeSwGQlpdKRi",
-      "title": "Refurbished 100cm Dual Fuel Range Cooker - Black A2/EQRANGEDF100BLKV2",
-      "flag": ""
-    },
     {
       "id": "v1|137662936544|0",
       "label": "Range cooker",
