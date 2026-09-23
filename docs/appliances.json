@@ -1,6 +1,19 @@
 {
-  "generated_at": "2026-09-23T16:16:02.902386+00:00",
-  "cooker": [],
+  "generated_at": "2026-09-23T17:42:18.708668+00:00",
+  "cooker": [
+    {
+      "id": "v1|137743065950|0",
+      "label": "Range cooker",
+      "model_query": "range cooker 100cm",
+      "grade": "A",
+      "raw_grade": "A1",
+      "price": 643.97,
+      "seller": "Appliances Direct",
+      "url": "https://www.ebay.co.uk/itm/137743065950?_skw=range+cooker+100cm&hash=item201220635e:g:HIcAAeSwtExqtADG",
+      "title": "Refurbished Tesla 100cm Dual Fuel Range Cooker - Stainless Steel A1/T100MCDFRCSS",
+      "flag": ""
+    }
+  ],
   "chilled": [
     {
       "id": "v1|137674386545|0",
