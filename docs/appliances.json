@@ -1,5 +1,19 @@
 {
-  "generated_at": "2026-11-19T16:17:41.909395+00:00",
+  "generated_at": "2026-11-19T20:03:12.425161+00:00",
   "cooker": [],
-  "chilled": []
+  "chilled": [
+    {
+      "id": "v1|137944041795|0",
+      "label": "100cm cooker hood",
+      "model_query": "100cm cooker hood",
+      "grade": "A",
+      "raw_grade": "A1",
+      "price": 145.97,
+      "seller": "Appliances Direct",
+      "url": "https://www.ebay.co.uk/itm/137944041795?_skw=100cm+cooker+hood&hash=item201e1b0943:g:W2wAAeSw2n5q~s2F",
+      "title": "electriQ eiQ100CHABL GRADE A1 -  100cm Angled Chimney Cooker Hood A1/eiQ100CHABL",
+      "flag": "",
+      "reason": "new"
+    }
+  ]
 }
